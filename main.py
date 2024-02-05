@@ -1,29 +1,24 @@
-import asyncio
-import os
-from log_config import *
-from dotenv import load_dotenv
-from aiogram import Bot, Dispatcher
-from aiogram.enums import ParseMode
-from handlers import (
-    bot_commands,
-    bot_messages,
-    bot_errors,
-    bot_startup)
+import flet as ft
 
 
-async def main() -> None:
-    load_dotenv()
-    TOKEN = os.getenv("TOKEN")
-    bot = Bot(TOKEN, parse_mode=ParseMode.HTML)
-    dp = Dispatcher()
-    dp.include_routers(
-        bot_commands.router,
-        bot_messages.router,
-        bot_startup.router,
-        bot_startup.router
+def main(page):
+    first_name = ft.TextField(label="First name", autofocus=True)
+    last_name = ft.TextField(label="Last name")
+    greetings = ft.Column()
+
+    def btn_click(e):
+        greetings.controls.append(ft.Text(f"Hello, {first_name.value} {last_name.value}!"))
+        first_name.value = ""
+        last_name.value = ""
+        page.update()
+        first_name.focus()
+
+    page.add(
+        first_name,
+        last_name,
+        ft.ElevatedButton("Say hello!", on_click=btn_click),
+        greetings,
     )
-    await dp.start_polling(bot)
 
 
-if __name__ == "__main__":
-    asyncio.run(main())
+ft.app(target=main, assets_dir='assets')
