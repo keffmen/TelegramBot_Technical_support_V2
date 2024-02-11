@@ -1,8 +1,6 @@
-import asyncio
 import os
 from log_config import *
 from aiohttp.web import run_app
-import aiohttp_cors
 from aiohttp.web_app import Application
 from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher
@@ -38,20 +36,7 @@ def main() -> None:
     app = Application()
     app["bot"] = bot
 
-    app.router.add_get("/upload", bot_upload.upload)
-
-    cors = aiohttp_cors.setup(app)
-
-    resourc = cors.add(app.router.add_resource('/upload'))
-    route = cors.add(
-        resourc.add_route('POST', bot_upload.upload),
-        {'https://e5b1-158-46-46-63.ngrok-free.app': aiohttp_cors.ResourceOptions(
-            allow_credentials=True,
-            expose_headers=('X-Custom-Server-Header',),
-            allow_headers=('X-Requested-With', 'Content-Type'),
-            max_age=3600,
-        )}
-    )
+    app.router.add_post("/upload", bot_upload.upload)
 
     SimpleRequestHandler(
         dispatcher=dp,
