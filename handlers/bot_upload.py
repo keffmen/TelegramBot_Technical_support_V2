@@ -34,7 +34,7 @@ async def upload(request: Request):
             file_path = os.path.join(upload_folder, file_field.filename)
             with open(file_path, 'wb') as f:
                 while True:
-                    chunk = await file_field.file.read(8192)
+                    chunk = file_field.file.read(8192)
                     if not chunk:
                         break
                     f.write(chunk)
@@ -48,6 +48,8 @@ async def upload(request: Request):
           f'Номер телефона: {phone_value}\n'
           f'Проблема: {problem_value}\n'
           f'id в TELEGRAM: {chat_id}')
+    bot: Bot = request.app['bot']
+    await bot.send_message(chat_id=chat_id, text='Мы получили вашу заявку! Вы получите ответ в ближайшее время!')
 
     # Получите заголовок «Origin» из запроса.
     origin = request.headers.get('Origin', '*')
