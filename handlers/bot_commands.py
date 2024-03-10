@@ -20,4 +20,5 @@ async def command_start_handler(message: Message) -> None:
     markup = InlineKeyboardBuilder()
     markup.add(types.InlineKeyboardButton(text='Оформить заявку', web_app=WebAppInfo(url=SAIT)))
     await message.answer(f"Привет, {hbold(message.from_user.full_name)}!",
-                         reply_markup=markup.as_markup())
+                         reply_markup=markup.as_markup(),
+                         parse_mode='HTML')

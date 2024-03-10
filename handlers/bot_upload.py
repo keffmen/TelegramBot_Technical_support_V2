@@ -1,11 +1,8 @@
 import logging
 import os
-
 from aiogram import Router
 from aiohttp import web
 from aiohttp.web_request import Request
-from aiohttp.web_response import json_response
-from aiogram.types import Message
 from aiogram import Bot
 
 router = Router()
