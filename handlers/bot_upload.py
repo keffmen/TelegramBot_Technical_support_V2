@@ -10,7 +10,6 @@ router = Router()
 
 async def upload(request: Request):
     data = await request.post()
-
     # Извлечение отдельных полей формы
     chat_id = data.get('Chat_id')
     id_value = data.get('id')
@@ -21,7 +20,7 @@ async def upload(request: Request):
 
     # Process the files (if needed)
     uploaded_files_info = []
-    if 'image' in data:
+    if 'image' in data and data.get('image') != 'undefined':
         for file_field in data.getall('image'):
             # Save the uploaded file to a folder (replace 'upload_folder' with your desired folder)
             upload_folder = f'database/{id_value}'

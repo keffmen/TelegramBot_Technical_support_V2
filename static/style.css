@@ -24,7 +24,7 @@ html, body
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     
 }
@@ -32,7 +32,7 @@ html, body
 .title_div
 {   
     width: 100%;
-    height: calc(var(--index) * 4);
+    height: calc(var(--index) * 6);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -78,8 +78,7 @@ fieldset
     display: flex;
     flex-direction: column;
     flex-wrap:wrap;
-    align-content: center;
-    height: 90%;
+    justify-content: center;
     border-radius: 10px;
 }
 
@@ -108,7 +107,7 @@ fieldset
     padding: 1rem 0.65rem;
     border-radius: 13px;
     margin-left: 25px;
-    font-size: calc(var(--index) * 1.75);
+    font-size: calc(var(--index) * 1);
     font-family: Open;
 }
 
@@ -144,9 +143,8 @@ fieldset
 .button-box{
     display: flex;
     align-content: center;
-    flex-wrap: wrap;
     flex-direction: column-reverse;
-    margin-top: auto;
+    margin-top: calc(1vh *2);
 }
 
 button{
