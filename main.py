@@ -1,11 +1,9 @@
 import os
 from log_config import *
-import ssl
 from aiohttp.web import run_app
 from aiohttp.web_app import Application
 from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher
-from aiogram.enums import ParseMode
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
 from handlers import (
     bot_upload,
@@ -13,7 +11,7 @@ from handlers import (
     bot_messages,
     bot_errors,
     bot_startup,
-    sait_form)
+    sait)
 
 
 async def on_startup(bot: Bot, base_url: str):
@@ -43,7 +41,8 @@ def main() -> None:
     app.router.add_static('/static/', path='static', name='static')
     app.router.add_static('/assets/', path='assets', name='assets')
     # Обработчик сайта
-    app.router.add_get('/forma', sait_form.form)
+    app.router.add_get('/forma', sait.form)
+    app.router.add_get('/authorization', sait.authorization)
 
     SimpleRequestHandler(
         dispatcher=dp,

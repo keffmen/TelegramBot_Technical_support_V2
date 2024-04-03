@@ -14,8 +14,8 @@ window.addEventListener('load', function() {
 });
 
 
-function uploadServer(){
-    if (typeof tg.initDataUnsafe.user !== 'undefined2'){
+function send_form(){
+    if (typeof tg.initDataUnsafe.user !== 'undefined'){
         var input = document.getElementById('input_photo')
         var file = input.files[0];
         var orgInput = document.getElementById('org')
