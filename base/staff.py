@@ -1,39 +1,10 @@
-import sqlite3
 from sqlite3 import Error
-
-
-# Функция создания подключения к базе данных
-def create_connection():
-    conn = None
-    try:
-        conn = sqlite3.connect(r"base.db")
-        print("Connection to SQLite DB successful")
-        return conn
-    except Error as e:
-        print(f"The error '{e}' occurred")
-
-
-# Функция создания таблицы сотрудников, если её нет
-def create_employee_table(conn):
-    create_table_sql = """
-    CREATE TABLE IF NOT EXISTS employees (
-        id INTEGER PRIMARY KEY,
-        telegram_id INTEGER UNIQUE,
-        telegram_login TEXT,
-        role TEXT
-    );
-    """
-    try:
-        cursor = conn.cursor()
-        cursor.execute(create_table_sql)
-        conn.commit()
-        print("Employee table created successfully")
-    except Error as e:
-        print(f"The error '{e}' occurred")
+from connect_base import create_connection
 
 
 # Функция добавления нового сотрудника
-def add_employee(conn, telegram_id, telegram_login, role):
+def add_employee(telegram_id, telegram_login, role):
+    conn = create_connection()
     sql = """
     INSERT INTO employees (telegram_id, telegram_login, role)
     VALUES (?, ?, ?)
@@ -42,13 +13,14 @@ def add_employee(conn, telegram_id, telegram_login, role):
         cursor = conn.cursor()
         cursor.execute(sql, (telegram_id, telegram_login, role))
         conn.commit()
-        print("Employee added successfully")
+        print("Сотрудник успешно добавлен")
     except Error as e:
-        print(f"The error '{e}' occurred")
+        print(f"Произошла ошибка '{e}'")
 
 
 # Функция изменения роли сотрудника по telegram_id
-def change_employee_role(conn, telegram_id, new_role):
+def change_employee_role(telegram_id, new_role):
+    conn = create_connection()
     sql = """
     UPDATE employees
     SET role = ?
@@ -58,13 +30,14 @@ def change_employee_role(conn, telegram_id, new_role):
         cursor = conn.cursor()
         cursor.execute(sql, (new_role, telegram_id))
         conn.commit()
-        print("Employee role updated successfully")
+        print("Роль сотрудника успешно обновлена")
     except Error as e:
-        print(f"The error '{e}' occurred")
+        print(f"Произошла ошибка '{e}'")
 
 
 # Функция удаления сотрудника по telegram_id
-def delete_employee(conn, telegram_id):
+def delete_employee(telegram_id):
+    conn = create_connection()
     sql = """
     DELETE FROM employees
     WHERE telegram_id = ?
@@ -73,6 +46,6 @@ def delete_employee(conn, telegram_id):
         cursor = conn.cursor()
         cursor.execute(sql, (telegram_id,))
         conn.commit()
-        print("Employee deleted successfully")
+        print("Сотрудник успешно удален")
     except Error as e:
-        print(f"The error '{e}' occurred")
+        print(f"Произошла ошибка '{e}'")

@@ -47,6 +47,10 @@ async def upload(request: Request):
     bot: Bot = request.app['bot']
     await bot.send_message(chat_id=chat_id, text='Мы получили вашу заявку! Вы получите ответ в ближайшее время!')
 
+    # Система записи в базу новой заявки
+
+
+
     # Получите заголовок «Origin» из запроса.
     origin = request.headers.get('Origin', '*')
 
