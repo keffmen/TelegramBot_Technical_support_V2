@@ -13,3 +13,7 @@ async def form(request: Request):
 async def authorization(request: Request):
     with open('web_authorization/index.html', encoding='utf-8') as f:
         return web.Response(text=f.read(), content_type='text/html')
+
+
+
+

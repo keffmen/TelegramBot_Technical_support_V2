@@ -1,4 +1,3 @@
-import logging
 import os
 from aiogram import Router
 from aiohttp import web
